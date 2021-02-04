@@ -157,6 +157,7 @@ export default function Documents() {
                     <Button
                         backgroundColor="transparent"
                         padding="10px"
+                        backgroundHoverColor="transparent"
                         onClick={() => {
                             setListType("list");
                         }}
@@ -170,6 +171,7 @@ export default function Documents() {
                     <Button
                         backgroundColor="transparent"
                         padding="10px"
+                        backgroundHoverColor="transparent"
                         onClick={() => {
                             setListType("grid");
                         }}

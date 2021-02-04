@@ -1,18 +1,13 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import { useState, useEffect } from "react";
+
+dayjs.extend(relativeTime);
 
 const Container = styled.div`
     overflow: auto;
-
-
-
-    @media (max-width: 800px) {
-       
-    }
-
-    @media (max-width: 560px) {
-       
-    }
 `;
 
 const Grid = styled.div`
@@ -76,6 +71,14 @@ interface PropTypes {
 }
 
 export default function DocumentGrid({ data }: PropTypes) {
+    const [lastUpdated, setLastUpdated] = useState(dayjs());
+
+    useEffect(() => {
+        if (data == null) return;
+
+        data.lastUpdated && setLastUpdated(dayjs(parseInt(data.lastUpdated)));
+    }, [data]);
+
     return (
         <Container>
             <Grid>
@@ -97,8 +100,8 @@ export default function DocumentGrid({ data }: PropTypes) {
                                     >
                                         {doc.title}
                                     </h3>
-                                    <p>Date Created: {doc.created}</p>
-                                    <p>Last Saved: {doc.lastsave}</p>
+                                    <p>Date Created: 2/04/21{doc.created}</p>
+                                    <p>Last Saved: {lastUpdated.fromNow()}</p>
                                 </DocDetails>
                             </Link>
                         )

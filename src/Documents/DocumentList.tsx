@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 dayjs.extend(relativeTime);
 
@@ -103,6 +103,12 @@ interface PropTypes {
 export default function DocumentList({ data }: PropTypes) {
     const [lastUpdated, setLastUpdated] = useState(dayjs());
 
+    useEffect(() => {
+        if (data == null) return;
+
+        data.lastUpdated && setLastUpdated(dayjs(parseInt(data.lastUpdated)));
+    }, [data]);
+
     return (
         <Container>
             <ListHeader>
@@ -125,7 +131,7 @@ export default function DocumentList({ data }: PropTypes) {
                         >
                             <ListImg />
                             <ListDetails>{doc.title}</ListDetails>
-                            <ListDetails>12/12/12{doc.created}</ListDetails>
+                            <ListDetails>2/04/21{doc.created}</ListDetails>
                             <ListDetails>{lastUpdated.fromNow()}</ListDetails>
                             <MobileList>
                                 <MobileListImg />
@@ -136,7 +142,7 @@ export default function DocumentList({ data }: PropTypes) {
                                     }} >{doc.title}</h3>
                                     <p style={{
                                         fontSize: "18px",
-                                    }}>Created on: 12/12/12{doc.created}</p>
+                                    }}>Created on: 2/04/21{doc.created}</p>
                                     <p style={{
                                         fontSize: "18px",
                                     }}>Last edited: {lastUpdated.fromNow()}</p>
